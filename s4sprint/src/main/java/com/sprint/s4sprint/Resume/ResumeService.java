@@ -1,5 +1,6 @@
 package com.sprint.s4sprint.Resume;
 
+import com.sprint.s4sprint.Applicant.Applicant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class ResumeService {
         return (List<Resume>) resumeRepository.findAll();
     }
 
-    public Resume updateResume(Integer index, Resume updatedResume) {
+    public Resume updateResume(long index, Resume updatedResume) {
         Resume resumeToUpdate = getResume(index);
 
         resumeToUpdate.setApplicantId(updatedResume.getApplicantId());
@@ -40,7 +41,7 @@ public class ResumeService {
         resumeRepository.delete(getResume(index));
     }
 
-    public List<Resume> findResumesByApplicantId(long applicantId) {
-        return resumeRepository.findResumesByApplicantId(applicantId);
+    public List<Resume> findByApplicantId(Applicant applicantId) {
+        return resumeRepository.findByApplicantId(applicantId);
     }
 }

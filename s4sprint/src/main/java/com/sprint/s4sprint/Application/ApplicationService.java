@@ -40,7 +40,7 @@ public class ApplicationService {
         applicationRepository.delete(getApplication(index));
     }
 
-    public List<Application> findApplicationsByApplicationStatusAndJobId(String applicationStatus, long jobId) {
-        return applicationRepository.findApplicationsByApplicationStatusAndJobId(applicationStatus, jobId);
+    public Application findApplicationsByApplicationStatus(String applicationStatus) {
+        return applicationRepository.findApplicationsByApplicationStatus(applicationStatus);
     }
 }

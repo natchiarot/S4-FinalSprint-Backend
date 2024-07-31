@@ -12,8 +12,8 @@ public class ApplicantController {
     private ApplicantService applicantService;
 
     @GetMapping("search_applicant")
-    public List<Applicant> searchApplicant(@RequestParam(value = "applicantName", required = true) String applicantName) {
-        return applicantService.findApplicantsByName(applicantName);
+    public Applicant searchApplicant(@RequestParam(value = "applicantName", required = false) String applicantName) {
+        return applicantService.findApplicantsByApplicantName(applicantName);
     }
 
     @GetMapping("applicants")
@@ -22,7 +22,7 @@ public class ApplicantController {
     }
 
     @GetMapping("applicant/{index}")
-    public Applicant getApplicant(@PathVariable Integer index) {
+    public Applicant getApplicant(@PathVariable long index) {
         return applicantService.getApplicant(index);
     }
 
@@ -32,12 +32,12 @@ public class ApplicantController {
     }
 
     @PutMapping("applicant/{index}")
-    public Applicant updateApplicant(@PathVariable Integer index, @RequestBody Applicant updatedApplicant) {
+    public Applicant updateApplicant(@PathVariable long index, @RequestBody Applicant updatedApplicant) {
         return applicantService.updateApplicant(index, updatedApplicant);
     }
 
     @DeleteMapping("applicant/{index}")
-    public void deleteApplicant(@PathVariable Integer index) {
+    public void deleteApplicant(@PathVariable long index) {
         applicantService.deleteApplicant(index);
     }
 }

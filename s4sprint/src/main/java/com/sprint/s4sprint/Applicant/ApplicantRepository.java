@@ -7,5 +7,5 @@ import java.util.List;
 
 @Repository
 public interface ApplicantRepository extends CrudRepository<Applicant, Long>  {
-    public List<Applicant> findApplicantByName(String applicantName);
+    public Applicant findApplicantsByApplicantName(String applicantName);
 }

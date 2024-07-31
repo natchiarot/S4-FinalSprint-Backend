@@ -12,8 +12,8 @@ public class SearchLogsController {
     private SearchLogsService searchLogsService;
 
     @GetMapping("search_search_logs")
-    public List<SearchLogs> searchSearchLogs(@RequestParam(value = "searchTerms", required = false) String searchTerms, @RequestParam(value = "userId", required = false) long userId) {
-        return searchLogsService.findSearchLoggingsBySearchTermsAndUserId(searchTerms, userId);
+    public SearchLogs searchSearchLogs(@RequestParam(value = "searchTerms", required = false) String searchTerms) {
+        return searchLogsService.findSearchLoggingsBySearchTerms(searchTerms);
     }
 
     @GetMapping("search_loggings")

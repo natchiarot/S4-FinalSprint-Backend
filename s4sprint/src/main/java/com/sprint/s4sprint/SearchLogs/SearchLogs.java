@@ -14,7 +14,8 @@ public class SearchLogs {
     private long searchLogsId;
     private LocalDateTime searchDateTime;
     private String searchTerms;
-    private List<User> userId;
+    @ManyToOne
+    private User userId;
 
     public long getSearchLogsId() {
         return searchLogsId;
@@ -40,11 +41,11 @@ public class SearchLogs {
         this.searchTerms = searchTerms;
     }
 
-    public List<User> getUserId() {
+    public User getUserId() {
         return userId;
     }
 
-    public void setUserId(List<User> userId) {
+    public void setUserId(User userId) {
         this.userId = userId;
     }
 }

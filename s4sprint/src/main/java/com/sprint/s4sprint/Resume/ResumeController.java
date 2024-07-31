@@ -1,5 +1,6 @@
 package com.sprint.s4sprint.Resume;
 
+import com.sprint.s4sprint.Applicant.Applicant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,8 +13,8 @@ public class ResumeController {
     private ResumeService resumeService;
 
     @GetMapping("search_resume")
-    public List<Resume> searchResume(@RequestParam(value = "applicantId", required = true) long applicantId) {
-        return resumeService.findResumesByApplicantId(applicantId);
+    public List<Resume> searchResume(@RequestParam(value = "applicantId", required = false) Applicant applicantId) {
+        return resumeService.findByApplicantId(applicantId);
     }
 
     @GetMapping("resumes")
@@ -22,7 +23,7 @@ public class ResumeController {
     }
 
     @GetMapping("resume/{index}")
-    public Resume getResume(@PathVariable Integer index) {
+    public Resume getResume(@PathVariable long index) {
         return resumeService.getResume(index);
     }
 
@@ -32,12 +33,12 @@ public class ResumeController {
     }
 
     @PutMapping("resume/{index}")
-    public Resume updateResume(@PathVariable Integer index, @RequestBody Resume updatedResume) {
+    public Resume updateResume(@PathVariable long index, @RequestBody Resume updatedResume) {
         return resumeService.updateResume(index, updatedResume);
     }
 
     @DeleteMapping("resume/{index}")
-    public void deleteResume(@PathVariable Integer index) {
+    public void deleteResume(@PathVariable long index) {
         resumeService.deleteResume(index);
     }
 }

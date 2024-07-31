@@ -7,6 +7,6 @@ import java.util.List;
 
 @Repository
 public interface SearchLogsRepository extends CrudRepository<SearchLogs, Long>  {
-    public List<SearchLogs> findSearchLoggingsBySearchTermsAndUserId(String searchTerms, long userId);
+    public SearchLogs findSearchLoggingsBySearchTerms(String searchTerms);
 }
 

@@ -41,7 +41,7 @@ public class SearchLogsService {
         searchLogsRepository.delete(getSearchLogs(index));
     }
 
-    public List<SearchLogs> findSearchLoggingsBySearchTermsAndUserId(String searchTerms, long userId) {
-        return searchLogsRepository.findSearchLoggingsBySearchTermsAndUserId(searchTerms, userId);
+    public SearchLogs findSearchLoggingsBySearchTerms(String searchTerms) {
+        return searchLogsRepository.findSearchLoggingsBySearchTerms(searchTerms);
     }
 }

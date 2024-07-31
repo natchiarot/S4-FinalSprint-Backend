@@ -28,7 +28,7 @@ public class ApplicantService {
         return (List<Applicant>) applicantRepository.findAll();
     }
 
-    public Applicant updateApplicant(Integer index, Applicant updatedApplicant) {
+    public Applicant updateApplicant(long index, Applicant updatedApplicant) {
         Applicant applicantToUpdate = getApplicant(index);
 
         applicantToUpdate.setApplicantName(updatedApplicant.getApplicantName());
@@ -41,7 +41,7 @@ public class ApplicantService {
         applicantRepository.delete(getApplicant(index));
     }
 
-    public List<Applicant> findApplicantsByName(String applicantName) {
-        return applicantRepository.findApplicantByName(applicantName);
+    public Applicant findApplicantsByApplicantName(String applicantName) {
+        return applicantRepository.findApplicantsByApplicantName(applicantName);
     }
 }

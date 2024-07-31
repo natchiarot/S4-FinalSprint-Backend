@@ -7,6 +7,6 @@ import java.util.List;
 
 @Repository
 public interface ApplicationRepository extends CrudRepository<Application, Long>  {
-    public List<Application> findApplicationsByApplicationStatusAndJobId(String applicationStatus, long jobId);
+    public Application findApplicationsByApplicationStatus(String applicationStatus);
 }
 

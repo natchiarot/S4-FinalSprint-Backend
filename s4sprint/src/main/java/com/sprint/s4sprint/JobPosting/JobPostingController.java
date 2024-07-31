@@ -12,7 +12,7 @@ public class JobPostingController {
     private JobPostingService jobPostingService;
 
     @GetMapping("search_job_posting")
-    public List<JobPosting> searchJobPosting(@RequestParam(value = "position", required = true) String jobPostingName, @RequestParam(value = "companyName", required = true) String companyName) {
+    public List<JobPosting> searchJobPosting(@RequestParam(value = "position", required = false) String jobPostingName, @RequestParam(value = "companyName", required = false) String companyName) {
         return jobPostingService.findJobPostingsByPositionAndCompanyName(jobPostingName, companyName);
     }
 

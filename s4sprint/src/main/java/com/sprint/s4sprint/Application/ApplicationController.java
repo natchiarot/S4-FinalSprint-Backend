@@ -12,8 +12,8 @@ public class ApplicationController {
     private ApplicationService applicationService;
 
     @GetMapping("search_application")
-    public List<Application> searchApplication(@RequestParam(value = "applicationStatus", required = false) String applicationStatus, @RequestParam(value = "jobId", required = false) long jobId) {
-        return applicationService.findApplicationsByApplicationStatusAndJobId(applicationStatus, jobId);
+    public Application searchApplication(@RequestParam(value = "applicationStatus", required = false) String applicationStatus) {
+        return applicationService.findApplicationsByApplicationStatus(applicationStatus);
     }
 
     @GetMapping("applications")

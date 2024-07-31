@@ -2,6 +2,7 @@ package com.sprint.s4sprint.Application;
 
 import com.sprint.s4sprint.Applicant.Applicant;
 import com.sprint.s4sprint.JobPosting.JobPosting;
+//import com.sprint.s4sprint.Resume.Resume;
 import com.sprint.s4sprint.Resume.Resume;
 import jakarta.persistence.*;
 
@@ -17,8 +18,11 @@ public class Application {
     private long applicationId;
     private String applicationStatus;
     private LocalDateTime lastUpdated;
+    @OneToMany
     private List<JobPosting> jobId;
-    private List<Applicant> applicantId;
+    @ManyToOne
+    private Applicant applicantId;
+    @OneToMany
     private List<Resume> resumeId;
 
     public long getApplicationId() {
@@ -53,11 +57,11 @@ public class Application {
         this.jobId = jobId;
     }
 
-    public List<Applicant> getApplicantId() {
+    public Applicant getApplicantId() {
         return applicantId;
     }
 
-    public void setApplicantId(List<Applicant> applicantId) {
+    public void setApplicantId(Applicant applicantId) {
         this.applicantId = applicantId;
     }
 

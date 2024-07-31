@@ -3,6 +3,7 @@ package com.sprint.s4sprint.Resume;
 import com.sprint.s4sprint.Applicant.Applicant;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -11,11 +12,12 @@ public class Resume {
     @SequenceGenerator(name = "resume_sequence", sequenceName = "resume_sequence", allocationSize = 1, initialValue=1)
     @GeneratedValue(generator = "resume_sequence")
     private long resumeId;
-    private String dateSubmitted;
+    private LocalDateTime dateSubmitted;
     private String resumeText;
     private String reviewNotes;
     private String location;
-    private List<Applicant> applicantId;
+    @ManyToOne
+    private Applicant applicantId;
 
     public long getResumeId() {
         return resumeId;
@@ -25,11 +27,11 @@ public class Resume {
         this.resumeId = resumeId;
     }
 
-    public String getDateSubmitted() {
+    public LocalDateTime getDateSubmitted() {
         return dateSubmitted;
     }
 
-    public void setDateSubmitted(String dateSubmitted) {
+    public void setDateSubmitted(LocalDateTime dateSubmitted) {
         this.dateSubmitted = dateSubmitted;
     }
 
@@ -57,11 +59,11 @@ public class Resume {
         this.location = location;
     }
 
-    public List<Applicant> getApplicantId() {
+    public Applicant getApplicantId() {
         return applicantId;
     }
 
-    public void setApplicantId(List<Applicant> applicantId) {
+    public void setApplicantId(Applicant applicantId) {
         this.applicantId = applicantId;
     }
 }
