@@ -1,5 +1,6 @@
-package com.sprint.s4sprint;
+package com.sprint.s4sprint.Resume;
 
+import com.sprint.s4sprint.Applicant.Applicant;
 import jakarta.persistence.*;
 
 import java.util.List;

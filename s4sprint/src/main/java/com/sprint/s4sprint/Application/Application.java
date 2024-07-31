@@ -1,5 +1,8 @@
-package com.sprint.s4sprint;
+package com.sprint.s4sprint.Application;
 
+import com.sprint.s4sprint.Applicant.Applicant;
+import com.sprint.s4sprint.JobPosting.JobPosting;
+import com.sprint.s4sprint.Resume.Resume;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;

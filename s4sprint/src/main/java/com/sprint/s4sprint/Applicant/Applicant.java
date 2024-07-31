@@ -1,9 +1,8 @@
-package com.sprint.s4sprint;
+package com.sprint.s4sprint.Applicant;
 
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 public class Applicant {

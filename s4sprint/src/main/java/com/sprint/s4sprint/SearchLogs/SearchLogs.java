@@ -1,5 +1,6 @@
-package com.sprint.s4sprint;
+package com.sprint.s4sprint.SearchLogs;
 
+import com.sprint.s4sprint.User.User;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;

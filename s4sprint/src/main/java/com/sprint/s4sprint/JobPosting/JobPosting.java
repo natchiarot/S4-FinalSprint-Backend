@@ -1,4 +1,4 @@
-package com.sprint.s4sprint;
+package com.sprint.s4sprint.JobPosting;
 
 import jakarta.persistence.*;
 
