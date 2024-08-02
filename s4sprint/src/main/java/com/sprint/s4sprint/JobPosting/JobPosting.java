@@ -9,9 +9,6 @@ public class JobPosting {
     @SequenceGenerator(name = "job_posting_sequence", sequenceName = "job_posting_sequence", allocationSize = 1, initialValue=1)
     @GeneratedValue(generator = "job_posting_sequence")
     private long jobId;
-    @ManyToOne
-    @JoinColumn(name="applicationId")
-    private Application application;
     private String position;
     private String companyName;
     private String employmentType;
@@ -29,14 +26,6 @@ public class JobPosting {
 
     public void setJobId(long jobId) {
         this.jobId = jobId;
-    }
-
-    public Application getApplication() {
-        return application;
-    }
-
-    public void setApplication(Application application) {
-        this.application = application;
     }
 
     public String getPosition() {

@@ -12,15 +12,12 @@ public class Resume {
     @SequenceGenerator(name = "resume_sequence", sequenceName = "resume_sequence", allocationSize = 1, initialValue=1)
     @GeneratedValue(generator = "resume_sequence")
     private long resumeId;
-    @ManyToOne
-    @JoinColumn(name = "applicationId")
-    private Application application;
     private LocalDateTime dateSubmitted;
     private String resumeText;
     private String reviewNotes;
     private String location;
     @ManyToOne
-    @JoinColumn(name="applicantId", nullable = false)
+    @JoinColumn(name = "applicant_id", nullable = false)
     private Applicant applicant;
 
     public long getResumeId() {
@@ -29,14 +26,6 @@ public class Resume {
 
     public void setResumeId(long resumeId) {
         this.resumeId = resumeId;
-    }
-
-    public Application getApplicationId() {
-        return application;
-    }
-
-    public void setApplicationId(Application application) {
-        this.application = application;
     }
 
     public LocalDateTime getDateSubmitted() {
