@@ -2,6 +2,7 @@ package com.sprint.s4sprint.Resume;
 
 import com.sprint.s4sprint.Applicant.Applicant;
 import com.sprint.s4sprint.Applicant.ApplicantRepository;
+import com.sprint.s4sprint.JobPosting.JobPosting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,15 +27,15 @@ public class ResumeService {
     }
 
     public Resume createResume(Resume newResume) {
-        Applicant applicant = newResume.getApplicant();
-        if (applicant == null || applicant.getApplicantId() == 0) {
-            throw new RuntimeException("Applicant cannot be null or have null ID");
-        }
-
-        Applicant applicantInDB = applicantRepository.findById(applicant.getApplicantId())
-                .orElseThrow(() -> new RuntimeException("Applicant not found"));
-
-        newResume.setApplicant(applicantInDB);
+        if (newResume.getApplicant() == null) {
+            System.out.println("No applicant entered");
+        } else {
+            Applicant applicant = newResume.getApplicant();
+            Applicant applicantInDB = applicantRepository.findApplicantsByApplicantName(applicant.getApplicantName());
+                if (applicantInDB == null) {
+                    applicant = applicantRepository.save(applicant);
+                }
+            }
         return resumeRepository.save(newResume);
     }
 
@@ -54,7 +55,7 @@ public class ResumeService {
         resumeRepository.delete(getResume(index));
     }
 
-    public Resume findByApplicant(Applicant applicant) {
-        return resumeRepository.findByApplicant(applicant);
+    public Resume findByResumeText(String resumeText) {
+        return resumeRepository.findByResumeText(resumeText);
     }
 }

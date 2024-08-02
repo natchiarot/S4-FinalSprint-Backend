@@ -20,7 +20,6 @@ public class Application {
     @OneToMany
     private List<JobPosting> jobPostings;
     @ManyToOne
-    @JoinColumn(name = "applicant_id", nullable = false)
     private Applicant applicant;
     @OneToOne
     private Resume resume;

@@ -18,9 +18,8 @@ public class ResumeController {
     private ApplicantService applicantService;
 
     @GetMapping("search_resume")
-    public Resume searchResume(@RequestParam(value = "applicantId", required = false) Long applicantId) {
-        Applicant applicant = applicantService.getApplicant(applicantId);
-        return resumeService.findByApplicant(applicant);
+    public Resume searchResume(@RequestParam(value = "applicantId", required = false) String resumeText) {
+        return resumeService.findByResumeText(resumeText);
     }
 
     @GetMapping("resumes")

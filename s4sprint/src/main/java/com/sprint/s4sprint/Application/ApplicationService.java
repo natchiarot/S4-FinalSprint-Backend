@@ -36,37 +36,44 @@ public class ApplicationService {
     }
 
     public Application createApplication(Application newApplication) {
-        if (newApplication.getJobPostings() == null) {
-            System.out.println("No job posting entered");
-        } else {
+        if (newApplication.getJobPostings() != null) {
             for (JobPosting jobPosting : newApplication.getJobPostings()) {
-                List<JobPosting> jobInDB = jobPostingRepository.findJobPostingByPositionAndCompanyName(jobPosting.getPosition(), jobPosting.getCompanyName());
-
-                if (jobInDB == null) {
-                    jobPosting = jobPostingRepository.save(jobPosting);
+                if (jobPosting.getJobId() == 0) {
+                    jobPostingRepository.save(jobPosting);
                 }
             }
         }
 
-            if (newApplication.getApplicant() == null) {
-                System.out.println("No applicant entered");
-            } else {
-                Applicant applicant = newApplication.getApplicant();
-                Applicant applicantInDB = applicantRepository.findApplicantsByApplicantName(applicant.getApplicantName());
+        if (newApplication.getApplicant() != null) {
+            Applicant applicant = newApplication.getApplicant();
+            Applicant applicantInDB = applicantRepository.findApplicantsByApplicantName(applicant.getApplicantName());
 
-                if (applicantInDB == null) {
-                    applicant = applicantRepository.save(applicant);
-                }
+            if (applicantInDB == null) {
+                applicant = applicantRepository.save(applicant);
+            } else {
+                applicant = applicantInDB;
             }
+            newApplication.setApplicant(applicant);
+        } else {
+            System.out.println("No applicant entered");
+        }
 
             if (newApplication.getResume() == null) {
                 System.out.println("No resume entered");
             } else {
                 Resume resume = newApplication.getResume();
-                Resume resumeInDB = resumeRepository.findByApplicant(resume.getApplicant());
+
+                if (resume.getApplicant() == null) {
+                    System.out.println("No applicant associated with resume");
+                    return null;
+                }
+                Resume resumeInDB = resumeRepository.findByResumeText(resume.getResumeText());
 
                 if (resumeInDB == null) {
                     resume = resumeRepository.save(resume);
+                    newApplication.setResume(resume);
+                } else {
+                    newApplication.setResume(resumeInDB);
                 }
             }
 
