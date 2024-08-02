@@ -14,23 +14,23 @@ public class Application {
     @Id
     @SequenceGenerator(name = "application_sequence", sequenceName = "application_sequence", allocationSize = 1, initialValue=1)
     @GeneratedValue(generator = "application_sequence")
-
-    private long applicationId;
+    private long application;
     private String applicationStatus;
     private LocalDateTime lastUpdated;
-    @OneToMany
-    private List<JobPosting> jobId;
+    @OneToMany(mappedBy = "application")
+    private List<JobPosting> jobPostings;
     @ManyToOne
-    private Applicant applicantId;
-    @OneToMany
-    private List<Resume> resumeId;
+    @JoinColumn(name="applicantId", nullable = false)
+    private Applicant applicant;
+    @OneToOne(mappedBy = "application")
+    private Resume resume;
 
     public long getApplicationId() {
-        return applicationId;
+        return application;
     }
 
-    public void setApplicationId(long applicationId) {
-        this.applicationId = applicationId;
+    public void setApplicationId(long application) {
+        this.application = application;
     }
 
     public String getApplicationStatus() {
@@ -49,27 +49,27 @@ public class Application {
         this.lastUpdated = lastUpdated;
     }
 
-    public List<JobPosting> getJobId() {
-        return jobId;
+    public List<JobPosting> getJobPostings() {
+        return jobPostings;
     }
 
-    public void setJobId(List<JobPosting> jobId) {
-        this.jobId = jobId;
+    public void setJobId(List<JobPosting> jobPostings) {
+        this.jobPostings = jobPostings;
     }
 
     public Applicant getApplicantId() {
-        return applicantId;
+        return applicant;
     }
 
     public void setApplicantId(Applicant applicantId) {
-        this.applicantId = applicantId;
+        this.applicant = applicant;
     }
 
-    public List<Resume> getResumeId() {
-        return resumeId;
+    public Resume getResumeId() {
+        return resume;
     }
 
-    public void setResumeId(List<Resume> resumeId) {
-        this.resumeId = resumeId;
+    public void setResumeId(Resume resume) {
+        this.resume = resume;
     }
 }

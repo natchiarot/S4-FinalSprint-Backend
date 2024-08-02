@@ -4,6 +4,8 @@ import com.sprint.s4sprint.Applicant.Applicant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.sprint.s4sprint.Applicant.ApplicantService;
+
 import java.util.List;
 
 @RestController
@@ -12,9 +14,13 @@ public class ResumeController {
     @Autowired
     private ResumeService resumeService;
 
+    @Autowired
+    private ApplicantService applicantService;
+
     @GetMapping("search_resume")
-    public List<Resume> searchResume(@RequestParam(value = "applicantId", required = false) Applicant applicantId) {
-        return resumeService.findByApplicantId(applicantId);
+    public Resume searchResume(@RequestParam(value = "applicantId", required = false) Long applicantId) {
+        Applicant applicant = applicantService.getApplicant(applicantId);
+        return resumeService.findByApplicant(applicant);
     }
 
     @GetMapping("resumes")
@@ -29,6 +35,11 @@ public class ResumeController {
 
     @PostMapping("resume")
     public Resume createResume(@RequestBody Resume newResume) {
+        Long applicantId = newResume.getApplicant().getApplicantId();
+        Applicant applicant = applicantService.getApplicant(applicantId);
+
+        newResume.setApplicant(applicant);
+
         return resumeService.createResume(newResume);
     }
 

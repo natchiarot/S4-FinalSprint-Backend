@@ -1,8 +1,10 @@
 package com.sprint.s4sprint.Applicant;
 
+import com.sprint.s4sprint.Resume.Resume;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Applicant {
@@ -15,6 +17,17 @@ public class Applicant {
     private String phone;
     private String address;
     private LocalDateTime lastUpdated;
+
+    @OneToMany(mappedBy = "applicant")
+    private List<Resume> resumes;
+
+    public List<Resume> getResumes() {
+        return resumes;
+    }
+
+    public void setResumes(List<Resume> resumes) {
+        this.resumes = resumes;
+    }
 
     public long getApplicantId() {
         return applicantId;

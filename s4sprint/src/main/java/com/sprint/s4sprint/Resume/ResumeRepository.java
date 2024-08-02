@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface ResumeRepository extends CrudRepository<Resume, Long>  {
-    public List<Resume> findByApplicantId(Applicant applicantId);
+    public Resume findByApplicant(Applicant applicant);
 }
 

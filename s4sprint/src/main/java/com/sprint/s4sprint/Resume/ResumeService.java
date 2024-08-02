@@ -32,7 +32,7 @@ public class ResumeService {
     public Resume updateResume(long index, Resume updatedResume) {
         Resume resumeToUpdate = getResume(index);
 
-        resumeToUpdate.setApplicantId(updatedResume.getApplicantId());
+        resumeToUpdate.setApplicant(updatedResume.getApplicant());
 
         return resumeRepository.save(resumeToUpdate);
     }
@@ -41,7 +41,7 @@ public class ResumeService {
         resumeRepository.delete(getResume(index));
     }
 
-    public List<Resume> findByApplicantId(Applicant applicantId) {
-        return resumeRepository.findByApplicantId(applicantId);
+    public Resume findByApplicant(Applicant applicant) {
+        return resumeRepository.findByApplicant(applicant);
     }
 }

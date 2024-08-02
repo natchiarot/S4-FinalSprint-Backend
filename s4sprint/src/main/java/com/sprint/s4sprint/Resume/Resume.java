@@ -1,10 +1,10 @@
 package com.sprint.s4sprint.Resume;
 
 import com.sprint.s4sprint.Applicant.Applicant;
+import com.sprint.s4sprint.Application.Application;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 public class Resume {
@@ -12,12 +12,16 @@ public class Resume {
     @SequenceGenerator(name = "resume_sequence", sequenceName = "resume_sequence", allocationSize = 1, initialValue=1)
     @GeneratedValue(generator = "resume_sequence")
     private long resumeId;
+    @ManyToOne
+    @JoinColumn(name = "applicationId")
+    private Application application;
     private LocalDateTime dateSubmitted;
     private String resumeText;
     private String reviewNotes;
     private String location;
     @ManyToOne
-    private Applicant applicantId;
+    @JoinColumn(name="applicantId", nullable = false)
+    private Applicant applicant;
 
     public long getResumeId() {
         return resumeId;
@@ -25,6 +29,14 @@ public class Resume {
 
     public void setResumeId(long resumeId) {
         this.resumeId = resumeId;
+    }
+
+    public Application getApplicationId() {
+        return application;
+    }
+
+    public void setApplicationId(Application application) {
+        this.application = application;
     }
 
     public LocalDateTime getDateSubmitted() {
@@ -59,11 +71,11 @@ public class Resume {
         this.location = location;
     }
 
-    public Applicant getApplicantId() {
-        return applicantId;
+    public Applicant getApplicant() {
+        return applicant;
     }
 
-    public void setApplicantId(Applicant applicantId) {
-        this.applicantId = applicantId;
+    public void setApplicant(Applicant applicant) {
+        this.applicant = applicant;
     }
 }
