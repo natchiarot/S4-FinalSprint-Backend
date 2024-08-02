@@ -15,7 +15,6 @@ public class SearchLogs {
     private LocalDateTime searchDateTime;
     private String searchTerms;
     @ManyToOne
-    @JoinColumn(name="userId", nullable = false)
     private User userId;
 
     public long getSearchLogsId() {

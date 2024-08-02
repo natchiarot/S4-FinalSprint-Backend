@@ -18,17 +18,6 @@ public class Applicant {
     private String address;
     private LocalDateTime lastUpdated;
 
-    @OneToMany(mappedBy = "applicant")
-    private List<Resume> resumes;
-
-    public List<Resume> getResumes() {
-        return resumes;
-    }
-
-    public void setResumes(List<Resume> resumes) {
-        this.resumes = resumes;
-    }
-
     public long getApplicantId() {
         return applicantId;
     }

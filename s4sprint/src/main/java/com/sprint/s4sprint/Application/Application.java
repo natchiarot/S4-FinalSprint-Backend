@@ -14,23 +14,23 @@ public class Application {
     @Id
     @SequenceGenerator(name = "application_sequence", sequenceName = "application_sequence", allocationSize = 1, initialValue=1)
     @GeneratedValue(generator = "application_sequence")
-    private long application;
+    private long applicationId;
     private String applicationStatus;
     private LocalDateTime lastUpdated;
-    @OneToMany(mappedBy = "application")
+    @OneToMany
     private List<JobPosting> jobPostings;
     @ManyToOne
-    @JoinColumn(name="applicantId", nullable = false)
+    @JoinColumn(name = "applicant_id", nullable = false)
     private Applicant applicant;
-    @OneToOne(mappedBy = "application")
+    @OneToOne
     private Resume resume;
 
     public long getApplicationId() {
-        return application;
+        return applicationId;
     }
 
-    public void setApplicationId(long application) {
-        this.application = application;
+    public void setApplicationId(long applicationId) {
+        this.applicationId = applicationId;
     }
 
     public String getApplicationStatus() {
@@ -53,23 +53,23 @@ public class Application {
         return jobPostings;
     }
 
-    public void setJobId(List<JobPosting> jobPostings) {
+    public void setJobPostings(List<JobPosting> jobPostings) {
         this.jobPostings = jobPostings;
     }
 
-    public Applicant getApplicantId() {
+    public Applicant getApplicant() {
         return applicant;
     }
 
-    public void setApplicantId(Applicant applicantId) {
+    public void setApplicant(Applicant applicantId) {
         this.applicant = applicant;
     }
 
-    public Resume getResumeId() {
+    public Resume getResume() {
         return resume;
     }
 
-    public void setResumeId(Resume resume) {
+    public void setResume(Resume resume) {
         this.resume = resume;
     }
 }
