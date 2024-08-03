@@ -21,6 +21,7 @@ public class SearchLogsService {
     }
 
     public SearchLogs createSearchLogs(SearchLogs newSearchLogs) {
+
         return searchLogsRepository.save(newSearchLogs);
     }
 
@@ -31,6 +32,7 @@ public class SearchLogsService {
     public SearchLogs updateSearchLogs(Integer index, SearchLogs updatedSearchLogs) {
         SearchLogs searchLogsToUpdate = getSearchLogs(index);
 
+        searchLogsToUpdate.setSearchDateTime(updatedSearchLogs.getSearchDateTime());
         searchLogsToUpdate.setSearchTerms(updatedSearchLogs.getSearchTerms());
         searchLogsToUpdate.setUserId(updatedSearchLogs.getUserId());
 

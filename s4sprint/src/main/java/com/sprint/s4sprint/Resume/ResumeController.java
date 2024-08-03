@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import com.sprint.s4sprint.Applicant.ApplicantService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -18,7 +19,7 @@ public class ResumeController {
     private ApplicantService applicantService;
 
     @GetMapping("search_resume")
-    public Resume searchResume(@RequestParam(value = "applicantId", required = false) String resumeText) {
+    public Optional<Resume> searchResume(@RequestParam(value = "applicantId", required = false) String resumeText) {
         return resumeService.findByResumeText(resumeText);
     }
 
@@ -34,11 +35,6 @@ public class ResumeController {
 
     @PostMapping("resume")
     public Resume createResume(@RequestBody Resume newResume) {
-        Long applicantId = newResume.getApplicant().getApplicantId();
-        Applicant applicant = applicantService.getApplicant(applicantId);
-
-        newResume.setApplicant(applicant);
-
         return resumeService.createResume(newResume);
     }
 

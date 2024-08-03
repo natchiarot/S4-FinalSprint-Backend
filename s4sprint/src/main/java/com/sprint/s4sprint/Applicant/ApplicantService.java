@@ -33,6 +33,9 @@ public class ApplicantService {
 
         applicantToUpdate.setApplicantName(updatedApplicant.getApplicantName());
         applicantToUpdate.setEmail(updatedApplicant.getEmail());
+        applicantToUpdate.setPhone(updatedApplicant.getPhone());
+        applicantToUpdate.setAddress(updatedApplicant.getAddress());
+        applicantToUpdate.setLastUpdated(updatedApplicant.getLastUpdated());
 
         return applicantRepository.save(applicantToUpdate);
     }
@@ -41,7 +44,7 @@ public class ApplicantService {
         applicantRepository.delete(getApplicant(index));
     }
 
-    public Applicant findApplicantsByApplicantName(String applicantName) {
+    public Optional<Applicant> findApplicantsByApplicantName(String applicantName) {
         return applicantRepository.findApplicantsByApplicantName(applicantName);
     }
 }

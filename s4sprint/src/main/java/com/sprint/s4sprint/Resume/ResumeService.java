@@ -2,7 +2,6 @@ package com.sprint.s4sprint.Resume;
 
 import com.sprint.s4sprint.Applicant.Applicant;
 import com.sprint.s4sprint.Applicant.ApplicantRepository;
-import com.sprint.s4sprint.JobPosting.JobPosting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,15 +26,17 @@ public class ResumeService {
     }
 
     public Resume createResume(Resume newResume) {
-        if (newResume.getApplicant() == null) {
-            System.out.println("No applicant entered");
-        } else {
+        if (newResume.getApplicant() != null) {
             Applicant applicant = newResume.getApplicant();
-            Applicant applicantInDB = applicantRepository.findApplicantsByApplicantName(applicant.getApplicantName());
-                if (applicantInDB == null) {
-                    applicant = applicantRepository.save(applicant);
-                }
+            Optional<Applicant> applicantInDB = applicantRepository.findApplicantsByApplicantName(applicant.getApplicantName());
+
+            if (applicantInDB.isEmpty()) {
+                applicant = applicantRepository.save(applicant);
+            } else {
+                applicant = applicantInDB.get();
             }
+            newResume.setApplicant(applicant);
+        }
         return resumeRepository.save(newResume);
     }
 
@@ -46,6 +47,10 @@ public class ResumeService {
     public Resume updateResume(long index, Resume updatedResume) {
         Resume resumeToUpdate = getResume(index);
 
+        resumeToUpdate.setDateSubmitted(updatedResume.getDateSubmitted());
+        resumeToUpdate.setResumeText(updatedResume.getResumeText());
+        resumeToUpdate.setReviewNotes(updatedResume.getReviewNotes());
+        resumeToUpdate.setLocation(updatedResume.getLocation());
         resumeToUpdate.setApplicant(updatedResume.getApplicant());
 
         return resumeRepository.save(resumeToUpdate);
@@ -55,7 +60,7 @@ public class ResumeService {
         resumeRepository.delete(getResume(index));
     }
 
-    public Resume findByResumeText(String resumeText) {
+    public Optional<Resume> findByResumeText(String resumeText) {
         return resumeRepository.findByResumeText(resumeText);
     }
 }

@@ -32,7 +32,12 @@ public class UserService {
         User userToUpdate = getUser(index);
 
         userToUpdate.setUserName(updatedUser.getUserName());
+        userToUpdate.setPosition(updatedUser.getPosition());
         userToUpdate.setEmail(updatedUser.getEmail());
+        userToUpdate.setPhone(updatedUser.getPhone());
+        userToUpdate.setLocation(updatedUser.getLocation());
+        userToUpdate.setLastLogin(updatedUser.getLastLogin());
+        userToUpdate.setPassword(updatedUser.getPassword());
 
         return userRepository.save(userToUpdate);
     }

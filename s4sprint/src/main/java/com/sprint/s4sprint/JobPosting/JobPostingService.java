@@ -33,6 +33,14 @@ public class JobPostingService {
 
         jobPostingToUpdate.setPosition(updatedJobPosting.getPosition());
         jobPostingToUpdate.setCompanyName(updatedJobPosting.getCompanyName());
+        jobPostingToUpdate.setEmploymentType(updatedJobPosting.getEmploymentType());
+        jobPostingToUpdate.setJobDescription(updatedJobPosting.getJobDescription());
+        jobPostingToUpdate.setExperienceLevel(updatedJobPosting.getExperienceLevel());
+        jobPostingToUpdate.setRequiredSkills(updatedJobPosting.getRequiredSkills());
+        jobPostingToUpdate.setCompensation(updatedJobPosting.getCompensation());
+        jobPostingToUpdate.setBenefits(updatedJobPosting.getBenefits());
+        jobPostingToUpdate.setWorkLocation(updatedJobPosting.getWorkLocation());
+        jobPostingToUpdate.setApplicationDeadline(updatedJobPosting.getApplicationDeadline());
 
         return jobPostingRepository.save(jobPostingToUpdate);
     }

@@ -19,8 +19,8 @@ public class Application {
     private LocalDateTime lastUpdated;
     @OneToMany
     private List<JobPosting> jobPostings;
-    @ManyToOne
-    private Applicant applicant;
+//    @ManyToOne
+//    private Applicant applicant;
     @OneToOne
     private Resume resume;
 
@@ -54,14 +54,6 @@ public class Application {
 
     public void setJobPostings(List<JobPosting> jobPostings) {
         this.jobPostings = jobPostings;
-    }
-
-    public Applicant getApplicant() {
-        return applicant;
-    }
-
-    public void setApplicant(Applicant applicantId) {
-        this.applicant = applicant;
     }
 
     public Resume getResume() {

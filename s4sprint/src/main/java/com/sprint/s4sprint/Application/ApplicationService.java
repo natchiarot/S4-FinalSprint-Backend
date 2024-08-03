@@ -40,42 +40,46 @@ public class ApplicationService {
             for (JobPosting jobPosting : newApplication.getJobPostings()) {
                 if (jobPosting.getJobId() == 0) {
                     jobPostingRepository.save(jobPosting);
-                }
-            }
-        }
-
-        if (newApplication.getApplicant() != null) {
-            Applicant applicant = newApplication.getApplicant();
-            Applicant applicantInDB = applicantRepository.findApplicantsByApplicantName(applicant.getApplicantName());
-
-            if (applicantInDB == null) {
-                applicant = applicantRepository.save(applicant);
-            } else {
-                applicant = applicantInDB;
-            }
-            newApplication.setApplicant(applicant);
-        } else {
-            System.out.println("No applicant entered");
-        }
-
-            if (newApplication.getResume() == null) {
-                System.out.println("No resume entered");
-            } else {
-                Resume resume = newApplication.getResume();
-
-                if (resume.getApplicant() == null) {
-                    System.out.println("No applicant associated with resume");
-                    return null;
-                }
-                Resume resumeInDB = resumeRepository.findByResumeText(resume.getResumeText());
-
-                if (resumeInDB == null) {
-                    resume = resumeRepository.save(resume);
-                    newApplication.setResume(resume);
                 } else {
-                    newApplication.setResume(resumeInDB);
+                    Optional<JobPosting> existingJobPosting = jobPostingRepository.findById(jobPosting.getJobId());
+                    if (existingJobPosting.isPresent()) {
+                        jobPostingRepository.save(jobPosting);
+                    } else {
+                        jobPostingRepository.save(jobPosting);
+                    }
                 }
             }
+        }
+
+        if (newApplication.getResume() == null) {
+            System.out.println("No resume entered");
+            return null;
+        } else {
+            Resume resume = newApplication.getResume();
+
+            if (resume.getApplicant() != null) {
+                Applicant applicant = resume.getApplicant();
+                Optional<Applicant> applicantInDB = applicantRepository.findApplicantsByApplicantName(applicant.getApplicantName());
+
+                if (applicantInDB.isEmpty()) {
+                    applicant = applicantRepository.save(applicant);
+                } else {
+                    applicant = applicantInDB.get();
+                }
+                resume.setApplicant(applicant);
+            } else {
+                System.out.println("No applicant associated with resume");
+                return null;
+            }
+
+            Optional<Resume> resumeInDB = resumeRepository.findByResumeText(resume.getResumeText());
+            if (resumeInDB.isEmpty()) {
+                resume = resumeRepository.save(resume);
+            } else {
+                resume = resumeInDB.get();
+            }
+            newApplication.setResume(resume);
+        }
 
             return applicationRepository.save(newApplication);
         }
@@ -87,7 +91,11 @@ public class ApplicationService {
         public Application updateApplication (Integer index, Application updatedApplication){
             Application applicationToUpdate = getApplication(index);
 
-            applicationToUpdate.setApplicationId(updatedApplication.getApplicationId());
+            applicationToUpdate.setApplicationStatus(updatedApplication.getApplicationStatus());
+            applicationToUpdate.setLastUpdated(updatedApplication.getLastUpdated());
+            applicationToUpdate.setJobPostings(updatedApplication.getJobPostings());
+//            applicationToUpdate.setApplicant(updatedApplication.getApplicant());
+            applicationToUpdate.setResume(updatedApplication.getResume());
 
             return applicationRepository.save(applicationToUpdate);
         }
