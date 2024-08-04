@@ -1,8 +1,6 @@
-package com.sprint.s4sprint;
+package com.sprint.s4sprint.User;
 
 import jakarta.persistence.*;
-
-import java.util.List;
 
 @Entity
 public class User {

@@ -1,5 +1,6 @@
-package com.sprint.s4sprint;
+package com.sprint.s4sprint.JobPosting;
 
+import com.sprint.s4sprint.Application.Application;
 import jakarta.persistence.*;
 
 @Entity

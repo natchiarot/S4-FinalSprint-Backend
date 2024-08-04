@@ -1,5 +1,6 @@
-package com.sprint.s4sprint;
+package com.sprint.s4sprint.Applicant;
 
+import com.sprint.s4sprint.Resume.Resume;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
