@@ -19,8 +19,7 @@ public class Application {
     private LocalDateTime lastUpdated;
     @OneToMany
     private List<JobPosting> jobPostings;
-//    @ManyToOne
-//    private Applicant applicant;
+
     @OneToOne
     private Resume resume;
 
