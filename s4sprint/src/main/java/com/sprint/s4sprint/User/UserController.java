@@ -12,8 +12,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("search_user")
-    public List<User> searchUser(@RequestParam(value = "userName", required = false) String userName, @RequestParam(value = "email", required = false) String email) {
-        return userService.findUsersByUserNameAndEmail(userName, email);
+    public List<User> searchUser(@RequestParam(value = "userName", required = false) String userName) {
+        return userService.findByUserName(userName);
     }
 
     @GetMapping("users")
