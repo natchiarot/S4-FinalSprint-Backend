@@ -9,9 +9,13 @@
         <module name="s4sprint" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="s4_2024_summer_first_rest_example" target="22" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="s4_2024_summer_first_rest_example" options="-parameters" />
       <module name="s4sprint" options="-parameters" />
     </option>
   </component>
