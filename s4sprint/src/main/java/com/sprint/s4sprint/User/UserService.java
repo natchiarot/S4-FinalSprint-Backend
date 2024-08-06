@@ -1,6 +1,10 @@
 package com.sprint.s4sprint.User;
 
+import com.sprint.s4sprint.Forms.RegisterForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -9,6 +13,8 @@ import java.util.*;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    private PasswordEncoder bcrypt = new BCryptPasswordEncoder(10);
 
     public User getUser(long index) {
         Optional<User> result = userRepository.findById(index);
@@ -20,8 +26,42 @@ public class UserService {
         return null;
     }
 
-    public User createUser(User newUser) {
+    /*public User createUser(User newUser) {
         return userRepository.save(newUser);
+    }*/
+
+    public ResponseEntity registerUser(RegisterForm formData) {
+        List<User> existing;
+
+        // Determine if username is already in use
+        existing = userRepository.findUsersByUserName(formData.getUsername());
+        if (!existing.isEmpty())
+            return ResponseEntity.internalServerError()
+                    .body("The username " + formData.getUsername() + " is already in use.");
+
+        // Determine if email is already in use
+        existing = userRepository.findUsersByEmail(formData.getEmail());
+        if (!existing.isEmpty())
+            return ResponseEntity.internalServerError()
+                    .body("The email address " + formData.getEmail() + " is already in use.");
+
+        String hashedPW = bcrypt.encode(formData.getPassword());
+
+        User newUser = new User();
+        newUser.setUserName(formData.getUsername());
+        newUser.setEmail(formData.getEmail());
+        newUser.setLocation(formData.getLocation());
+        newUser.setPhone(formData.getPhoneNum());
+        newUser.setPosition(formData.getPosition());
+        newUser.setPassword(hashedPW);
+
+        userRepository.save(newUser);
+
+        // TODO: implement JWT
+        return ResponseEntity.ok(newUser);
+
+        // TODO: implement exception handling
+        // return ResponseEntity.internalServerError().body("An unknown error occurred.");
     }
 
     public List<User> getAllUsers() {

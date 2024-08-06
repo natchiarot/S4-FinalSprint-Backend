@@ -1,6 +1,12 @@
 package com.sprint.s4sprint.User;
 
+import com.sprint.s4sprint.Forms.RegisterForm;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,9 +32,21 @@ public class UserController {
         return userService.getUser(index);
     }
 
-    @PostMapping("user")
+    /*@PostMapping("user")
     public User createUser(@RequestBody User newUser) {
         return userService.createUser(newUser);
+    }*/
+
+    /*@PostMapping(path = "/users/signUp",
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity registerUser() {
+        return ResponseEntity.ok(HttpStatus.OK);
+    }*/
+
+    @RequestMapping(path = "/users/signUp", method = RequestMethod.POST)
+    public ResponseEntity registerUser(@ModelAttribute RegisterForm formData) {
+        return userService.registerUser(formData);
     }
 
     @PutMapping("user/{index}")
