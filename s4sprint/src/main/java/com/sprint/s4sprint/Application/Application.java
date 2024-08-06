@@ -17,10 +17,10 @@ public class Application {
     private long applicationId;
     private String applicationStatus;
     private LocalDateTime lastUpdated;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<JobPosting> jobPostings;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Resume resume;
 
     public long getApplicationId() {
