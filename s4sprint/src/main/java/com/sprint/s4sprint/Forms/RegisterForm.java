@@ -1,13 +1,36 @@
 package com.sprint.s4sprint.Forms;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 // Class to deserialize the registration form
 public class RegisterForm {
+    @NotNull
+    @Size(min = 3, max = 20)
     private String username;
+
+    @NotNull
+    @Size(min = 1)
     private String position;
+
+    @NotNull
+    @Size(min = 1)
     private String email;
+
+    @NotNull
+    @Size(min = 1)
     private String phoneNum;
+
+    @NotNull
+    @Size(min = 1)
     private String location;
+
+    @NotNull
+    @Size(min = 1)
     private String password;
+
+    @NotNull
+    @Size(min = 1)
     private String passwordVerify;
 
     public String getUsername() {

@@ -1,12 +1,15 @@
 package com.sprint.s4sprint.User;
 
+import com.sprint.s4sprint.Forms.LoginForm;
 import com.sprint.s4sprint.Forms.RegisterForm;
+import jakarta.validation.Valid;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +30,14 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    @RequestMapping(path = "/users/login", method = RequestMethod.GET)
+    public ResponseEntity loginUser(@ModelAttribute @Valid LoginForm formData, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return ResponseEntity.internalServerError().body("Input was invalid.");
+
+        return userService.validateLogin(formData);
+    }
+
     @GetMapping("user/{index}")
     public User getUser(@PathVariable Integer index) {
         return userService.getUser(index);
@@ -45,7 +56,10 @@ public class UserController {
     }*/
 
     @RequestMapping(path = "/users/signUp", method = RequestMethod.POST)
-    public ResponseEntity registerUser(@ModelAttribute RegisterForm formData) {
+    public ResponseEntity registerUser(@ModelAttribute @Valid RegisterForm formData, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return ResponseEntity.internalServerError().body("Input was invalid.");
+
         return userService.registerUser(formData);
     }
 
