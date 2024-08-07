@@ -1,10 +1,7 @@
 package com.sprint.s4sprint.Application;
 
-import com.sprint.s4sprint.Applicant.Applicant;
 import com.sprint.s4sprint.Applicant.ApplicantRepository;
-import com.sprint.s4sprint.JobPosting.JobPosting;
 import com.sprint.s4sprint.JobPosting.JobPostingRepository;
-import com.sprint.s4sprint.Resume.Resume;
 import com.sprint.s4sprint.Resume.ResumeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,49 +33,19 @@ public class ApplicationService {
     }
 
     public Application createApplication(Application newApplication) {
-        if (newApplication.getJobPostings() != null) {
-            for (JobPosting jobPosting : newApplication.getJobPostings()) {
-                if (jobPosting.getJobId() == 0) {
-                    jobPostingRepository.save(jobPosting);
-                } else {
-                    Optional<JobPosting> existingJobPosting = jobPostingRepository.findById(jobPosting.getJobId());
-                    if (existingJobPosting.isPresent()) {
-                        jobPostingRepository.save(jobPosting);
-                    } else {
-                        jobPostingRepository.save(jobPosting);
-                    }
-                }
-            }
+        if (newApplication.getJobPostings() == null) {
+            System.out.println("No job posting entered");
+            return null;
         }
 
         if (newApplication.getResume() == null) {
             System.out.println("No resume entered");
             return null;
-        } else {
-            Resume resume = newApplication.getResume();
+        }
 
-            if (resume.getApplicant() != null) {
-                Applicant applicant = resume.getApplicant();
-                Optional<Applicant> applicantInDB = applicantRepository.findApplicantsByApplicantName(applicant.getApplicantName());
-
-                if (applicantInDB.isEmpty()) {
-                    applicant = applicantRepository.save(applicant);
-                } else {
-                    applicant = applicantInDB.get();
-                }
-                resume.setApplicant(applicant);
-            } else {
-                System.out.println("No applicant associated with resume");
-                return null;
-            }
-
-            Optional<Resume> resumeInDB = resumeRepository.findByResumeText(resume.getResumeText());
-            if (resumeInDB.isEmpty()) {
-                resume = resumeRepository.save(resume);
-            } else {
-                resume = resumeInDB.get();
-            }
-            newApplication.setResume(resume);
+        if (newApplication.getResume().getApplicant() == null) {
+            System.out.println("No applicant for resume entered");
+            return null;
         }
 
             return applicationRepository.save(newApplication);
@@ -94,7 +61,6 @@ public class ApplicationService {
             applicationToUpdate.setApplicationStatus(updatedApplication.getApplicationStatus());
             applicationToUpdate.setLastUpdated(updatedApplication.getLastUpdated());
             applicationToUpdate.setJobPostings(updatedApplication.getJobPostings());
-//            applicationToUpdate.setApplicant(updatedApplication.getApplicant());
             applicationToUpdate.setResume(updatedApplication.getResume());
 
             return applicationRepository.save(applicationToUpdate);

@@ -1,7 +1,6 @@
 package com.sprint.s4sprint.Resume;
 
 import com.sprint.s4sprint.Applicant.Applicant;
-import com.sprint.s4sprint.Application.Application;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -16,7 +15,7 @@ public class Resume {
     private String resumeText;
     private String reviewNotes;
     private String location;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "applicant_id", nullable = false)
     private Applicant applicant;
 

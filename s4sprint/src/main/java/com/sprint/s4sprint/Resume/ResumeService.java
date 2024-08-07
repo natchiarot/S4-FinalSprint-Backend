@@ -1,6 +1,5 @@
 package com.sprint.s4sprint.Resume;
 
-import com.sprint.s4sprint.Applicant.Applicant;
 import com.sprint.s4sprint.Applicant.ApplicantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,16 +25,9 @@ public class ResumeService {
     }
 
     public Resume createResume(Resume newResume) {
-        if (newResume.getApplicant() != null) {
-            Applicant applicant = newResume.getApplicant();
-            Optional<Applicant> applicantInDB = applicantRepository.findApplicantsByApplicantName(applicant.getApplicantName());
-
-            if (applicantInDB.isEmpty()) {
-                applicant = applicantRepository.save(applicant);
-            } else {
-                applicant = applicantInDB.get();
-            }
-            newResume.setApplicant(applicant);
+        if (newResume.getApplicant() == null) {
+            System.out.println("No applicant entered");
+            return null;
         }
         return resumeRepository.save(newResume);
     }
