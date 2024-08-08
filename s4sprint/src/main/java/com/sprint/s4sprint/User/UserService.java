@@ -18,21 +18,13 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    private PasswordEncoder bcrypt = new BCryptPasswordEncoder(10);
+    private final PasswordEncoder bcrypt = new BCryptPasswordEncoder(10);
 
     public User getUser(long index) {
         Optional<User> result = userRepository.findById(index);
 
-        if (result.isPresent()) {
-            return result.get();
-        }
-
-        return null;
+        return result.orElse(null);
     }
-
-    /*public User createUser(User newUser) {
-        return userRepository.save(newUser);
-    }*/
 
     public ResponseEntity registerUser(RegisterForm formData) {
         if (!formData.getPassword().equals(formData.getPasswordVerify()))
@@ -64,11 +56,7 @@ public class UserService {
 
         userRepository.save(newUser);
 
-        // TODO: implement JWT
         return ResponseEntity.ok(newUser);
-
-        // TODO: implement data validation
-        // return ResponseEntity.internalServerError().body("An unknown error occurred.");
     }
 
     public ResponseEntity<String> validateLogin(LoginForm formData) {
