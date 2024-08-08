@@ -55,4 +55,8 @@ public class ResumeService {
     public Optional<Resume> findByResumeText(String resumeText) {
         return resumeRepository.findByResumeText(resumeText);
     }
+
+    public List<Resume> findByResumeTextLike(String resumeText) {
+        return resumeRepository.findByResumeTextContaining(resumeText);
+    }
 }

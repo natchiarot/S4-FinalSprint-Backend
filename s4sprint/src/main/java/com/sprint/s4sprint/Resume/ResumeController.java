@@ -19,8 +19,8 @@ public class ResumeController {
     private ApplicantService applicantService;
 
     @GetMapping("search_resume")
-    public Optional<Resume> searchResume(@RequestParam(value = "applicantId", required = false) String resumeText) {
-        return resumeService.findByResumeText(resumeText);
+    public List<Resume> searchResume(@RequestParam(value = "text") String resumeText) {
+        return resumeService.findByResumeTextLike(resumeText);
     }
 
     @GetMapping("resumes")

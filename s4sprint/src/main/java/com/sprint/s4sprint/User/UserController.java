@@ -1,6 +1,11 @@
 package com.sprint.s4sprint.User;
 
+import com.sprint.s4sprint.Forms.LoginForm;
+import com.sprint.s4sprint.Forms.RegisterForm;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,14 +26,25 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    @PostMapping("users/login")
+    public ResponseEntity loginUser(@RequestBody @Valid LoginForm formData, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return ResponseEntity.internalServerError().body("Input was invalid.");
+
+        return userService.validateLogin(formData);
+    }
+
     @GetMapping("user/{index}")
     public User getUser(@PathVariable Integer index) {
         return userService.getUser(index);
     }
 
-    @PostMapping("user")
-    public User createUser(@RequestBody User newUser) {
-        return userService.createUser(newUser);
+    @PostMapping("users/signUp")
+    public ResponseEntity registerUser(@RequestBody @Valid RegisterForm formData, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return ResponseEntity.internalServerError().body("Input was invalid.");
+
+        return userService.registerUser(formData);
     }
 
     @PutMapping("user/{index}")
