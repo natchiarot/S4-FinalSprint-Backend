@@ -1,5 +1,7 @@
 package com.sprint.s4sprint.SearchLogs;
 
+import com.sprint.s4sprint.User.User;
+import com.sprint.s4sprint.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +11,9 @@ import java.util.*;
 public class SearchLogsService {
     @Autowired
     private SearchLogsRepository searchLogsRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public SearchLogs getSearchLogs(long index) {
         Optional<SearchLogs> result = searchLogsRepository.findById(index);
@@ -21,7 +26,17 @@ public class SearchLogsService {
     }
 
     public SearchLogs createSearchLogs(SearchLogs newSearchLogs) {
+        if (newSearchLogs.getUser() != null) {
+           User user = newSearchLogs.getUser();
+            List<User> userInDB = userRepository.findByUserName(user.getUserName());
 
+            if (userInDB.isEmpty()) {
+                user = userRepository.save(user);
+            } else {
+                user = userInDB.get(0);
+            }
+            newSearchLogs.setUser(user);
+        }
         return searchLogsRepository.save(newSearchLogs);
     }
 
@@ -34,7 +49,7 @@ public class SearchLogsService {
 
         searchLogsToUpdate.setSearchDateTime(updatedSearchLogs.getSearchDateTime());
         searchLogsToUpdate.setSearchTerms(updatedSearchLogs.getSearchTerms());
-        searchLogsToUpdate.setUserId(updatedSearchLogs.getUserId());
+        searchLogsToUpdate.setUser(updatedSearchLogs.getUser());
 
         return searchLogsRepository.save(searchLogsToUpdate);
     }

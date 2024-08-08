@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="s4_2024_summer_first_rest_example" />
         <module name="s4sprint" />
       </profile>
     </annotationProcessing>

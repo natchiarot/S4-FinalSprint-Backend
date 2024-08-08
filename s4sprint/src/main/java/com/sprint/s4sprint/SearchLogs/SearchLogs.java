@@ -15,7 +15,7 @@ public class SearchLogs {
     private LocalDateTime searchDateTime;
     private String searchTerms;
     @ManyToOne
-    private User userId;
+    private User user;
 
     public long getSearchLogsId() {
         return searchLogsId;
@@ -41,11 +41,11 @@ public class SearchLogs {
         this.searchTerms = searchTerms;
     }
 
-    public User getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 }
