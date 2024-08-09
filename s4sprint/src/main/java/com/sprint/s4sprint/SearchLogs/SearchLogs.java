@@ -4,7 +4,7 @@ import com.sprint.s4sprint.User.User;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Date;
 
 @Entity
 public class SearchLogs {
@@ -12,9 +12,9 @@ public class SearchLogs {
     @SequenceGenerator(name = "search_logs_sequence", sequenceName = "search_logs_sequence", allocationSize = 1, initialValue=1)
     @GeneratedValue(generator = "search_logs_sequence")
     private long searchLogsId;
-    private LocalDateTime searchDateTime;
+    private Date searchDateTime;
     private String searchTerms;
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private User user;
 
     public long getSearchLogsId() {
@@ -25,11 +25,11 @@ public class SearchLogs {
         this.searchLogsId = searchLogsId;
     }
 
-    public LocalDateTime getSearchDateTime() {
+    public Date getSearchDateTime() {
         return searchDateTime;
     }
 
-    public void setSearchDateTime(LocalDateTime searchDateTime) {
+    public void setSearchDateTime(Date searchDateTime) {
         this.searchDateTime = searchDateTime;
     }
 

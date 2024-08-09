@@ -9,6 +9,6 @@ import java.util.Optional;
 @Repository
 public interface ResumeRepository extends CrudRepository<Resume, Long>  {
     Optional<Resume> findByResumeText(String resumeText);
-    List<Resume> findByResumeTextContaining(String resumeText);
+    List<Resume> findByResumeTextContainingIgnoreCase(String resumeText);
 }
 

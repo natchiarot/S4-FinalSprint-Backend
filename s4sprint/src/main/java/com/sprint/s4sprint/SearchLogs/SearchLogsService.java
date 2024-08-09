@@ -28,12 +28,12 @@ public class SearchLogsService {
     public SearchLogs createSearchLogs(SearchLogs newSearchLogs) {
         if (newSearchLogs.getUser() != null) {
            User user = newSearchLogs.getUser();
-            List<User> userInDB = userRepository.findByUserName(user.getUserName());
+            Optional<User> userInDB = userRepository.findByUserName(user.getUserName());
 
             if (userInDB.isEmpty()) {
                 user = userRepository.save(user);
             } else {
-                user = userInDB.get(0);
+                user = userInDB.get();
             }
             newSearchLogs.setUser(user);
         }
@@ -42,16 +42,6 @@ public class SearchLogsService {
 
     public List<SearchLogs> getAllSearchLoggings() {
         return (List<SearchLogs>) searchLogsRepository.findAll();
-    }
-
-    public SearchLogs updateSearchLogs(Integer index, SearchLogs updatedSearchLogs) {
-        SearchLogs searchLogsToUpdate = getSearchLogs(index);
-
-        searchLogsToUpdate.setSearchDateTime(updatedSearchLogs.getSearchDateTime());
-        searchLogsToUpdate.setSearchTerms(updatedSearchLogs.getSearchTerms());
-        searchLogsToUpdate.setUser(updatedSearchLogs.getUser());
-
-        return searchLogsRepository.save(searchLogsToUpdate);
     }
 
     public void deleteSearchLogs(long index) {

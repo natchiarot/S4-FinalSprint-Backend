@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -17,7 +18,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("search_user")
-    public List<User> searchUser(@RequestParam(value = "userName", required = false) String userName) {
+    public Optional<User> searchUser(@RequestParam(value = "userName", required = false) String userName, String mail) {
         return userService.findByUserName(userName);
     }
 
@@ -55,5 +56,9 @@ public class UserController {
     @DeleteMapping("user/{index}")
     public void deleteUser(@PathVariable Integer index) {
         userService.deleteUser(index);
+    }
+
+    public void createUser(User user) {
+        userService.createUser(user);
     }
 }

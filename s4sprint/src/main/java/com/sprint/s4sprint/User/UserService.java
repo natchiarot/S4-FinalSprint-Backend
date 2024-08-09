@@ -26,6 +26,12 @@ public class UserService {
         return result.orElse(null);
     }
 
+    public User getUser(String username) {
+        Optional<User> result = userRepository.findByUserName(username);
+
+        return result.orElse(null);
+    }
+
     public ResponseEntity registerUser(RegisterForm formData) {
         if (!formData.getPassword().equals(formData.getPasswordVerify()))
             return ResponseEntity.internalServerError()
@@ -60,7 +66,7 @@ public class UserService {
     }
 
     public ResponseEntity<String> validateLogin(LoginForm formData) {
-        Optional<User> user = userRepository.findUserByUserName(formData.getUsername());
+        Optional<User> user = userRepository.findByUserName(formData.getUsername());
         if (user.isEmpty())
             return ResponseEntity.internalServerError().body("User " + formData.getUsername() + " does not exist.");
 
@@ -116,7 +122,15 @@ public class UserService {
         userRepository.delete(getUser(index));
     }
 
-    public List<User> findByUserName(String userName) {
+    public Optional<User> findByUserName(String userName) {
         return userRepository.findByUserName(userName);
+    }
+
+    public List<User> findUsersByUserNameAndEmail(String username, String mail) {
+        return userRepository.findUsersByUserNameAndEmail(username, mail);
+    }
+
+    public void createUser(User user) {
+        userRepository.save(user);
     }
 }
