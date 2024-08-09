@@ -61,10 +61,8 @@ public class ResumeService {
 
         for (int i = 1; i < searchTerms.length; i++) {
             int current = i;
-            results.removeIf(resume -> !resume.getResumeText().toLowerCase().contains(searchTerms[current]));
+            results.removeIf(resume -> !resume.getResumeText().toLowerCase().contains(searchTerms[current].toLowerCase()));
         }
-
-
 
         return results;
     }
