@@ -1,6 +1,7 @@
 package com.sprint.s4sprint.Resume;
 
 import com.sprint.s4sprint.Applicant.ApplicantRepository;
+import com.sprint.s4sprint.Forms.SearchForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,11 +53,19 @@ public class ResumeService {
         resumeRepository.delete(getResume(index));
     }
 
-    public Optional<Resume> findByResumeText(String resumeText) {
-        return resumeRepository.findByResumeText(resumeText);
-    }
+    // Search resumes. Supports multiple keywords - I was not sure how to implement this using only Hibernate,
+    //  so multi-keyword searches involve post-processing of the data retrieved from the database
+    public List<Resume> searchResumes(SearchForm searchForm) {
+        String[] searchTerms = searchForm.getQuery().split(" +");
+        List<Resume> results = resumeRepository.findByResumeTextContainingIgnoreCase(searchTerms[0]);
 
-    public List<Resume> findByResumeTextLike(String resumeText) {
-        return resumeRepository.findByResumeTextContaining(resumeText);
+        for (int i = 1; i < searchTerms.length; i++) {
+            int current = i;
+            results.removeIf(resume -> !resume.getResumeText().toLowerCase().contains(searchTerms[current]));
+        }
+
+
+
+        return results;
     }
 }

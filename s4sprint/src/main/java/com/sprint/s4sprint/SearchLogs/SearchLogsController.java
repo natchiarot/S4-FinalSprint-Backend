@@ -31,11 +31,6 @@ public class SearchLogsController {
         return searchLogsService.createSearchLogs(newSearchLogs);
     }
 
-    @PutMapping("search_logs/{index}")
-    public SearchLogs updateSearchLogs(@PathVariable Integer index, @RequestBody SearchLogs updatedSearchLogs) {
-        return searchLogsService.updateSearchLogs(index, updatedSearchLogs);
-    }
-
     @DeleteMapping("search_logs/{index}")
     public void deleteSearchLogs(@PathVariable Integer index) {
         searchLogsService.deleteSearchLogs(index);
