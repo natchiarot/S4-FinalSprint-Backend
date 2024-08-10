@@ -1,4 +1,6 @@
 FROM eclipse-temurin:22
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+WORKDIR /s4sprint
+COPY target/s4sprint-1.0-SNAPSHOT.jar s4sprint.jar
+EXPOSE 8080
+ENV DB_URL=
+ENTRYPOINT ["java", "-jar", "s4sprint.jar"]
