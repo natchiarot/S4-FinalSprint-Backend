@@ -3,6 +3,7 @@ package com.sprint.s4sprint;
 import com.sprint.S4sprintApplication;
 import com.sprint.s4sprint.User.UserRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.sprint.s4sprint.User.User;
 import com.sprint.s4sprint.User.UserService;
@@ -10,6 +11,12 @@ import com.sprint.s4sprint.User.UserController;
 
 @SpringBootTest
 class S4sprintApplicationTests {
+
+	@Autowired
+	UserService userService;
+
+	@Autowired
+	UserController userController;
 
 	@Test
 	void contextLoads() {
@@ -37,7 +44,6 @@ class S4sprintApplicationTests {
 
 	@Test
 	void testUserService() {
-		UserService userService = new UserService();
 		userService.createUser(new User());
 		userService.getAllUsers();
 		userService.getUser(1);
@@ -46,7 +52,6 @@ class S4sprintApplicationTests {
 
 	@Test
 	void testUserController() {
-		UserController userController = new UserController();
 		userController.createUser(new User());
 		userController.getAllUsers();
 		userController.getUser(1);
