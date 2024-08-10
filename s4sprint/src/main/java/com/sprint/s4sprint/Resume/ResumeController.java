@@ -1,16 +1,9 @@
 package com.sprint.s4sprint.Resume;
 
-import com.sprint.s4sprint.Applicant.Applicant;
 import com.sprint.s4sprint.Forms.SearchForm;
-import com.sprint.s4sprint.SearchLogs.SearchLogs;
-import com.sprint.s4sprint.SearchLogs.SearchLogsRepository;
-import com.sprint.s4sprint.SearchLogs.SearchLogsService;
+import com.sprint.s4sprint.SearchLog.SearchLog;
+import com.sprint.s4sprint.SearchLog.SearchLogService;
 import com.sprint.s4sprint.User.UserService;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwt;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +21,7 @@ public class ResumeController {
     private ApplicantService applicantService;
 
     @Autowired
-    private SearchLogsService searchLogsService;
+    private SearchLogService searchLogService;
 
     @Autowired
     private UserService userService;
@@ -64,12 +57,12 @@ public class ResumeController {
             return new ArrayList<>();
 
         // Create a new search log entry
-        SearchLogs newLog = new SearchLogs();
+        SearchLog newLog = new SearchLog();
         newLog.setSearchDateTime(new Date());
         newLog.setSearchTerms(searchForm.getQuery());
         newLog.setUser(userService.getUser(searchForm.getUsername()));
 
-        searchLogsService.createSearchLogs(newLog);
+        searchLogService.createSearchLog(newLog);
 
         return resumeService.searchResumes(searchForm);
     }

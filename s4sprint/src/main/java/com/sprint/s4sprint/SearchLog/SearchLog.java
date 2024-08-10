@@ -1,28 +1,27 @@
-package com.sprint.s4sprint.SearchLogs;
+package com.sprint.s4sprint.SearchLog;
 
 import com.sprint.s4sprint.User.User;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-public class SearchLogs {
+public class SearchLog {
     @Id
     @SequenceGenerator(name = "search_logs_sequence", sequenceName = "search_logs_sequence", allocationSize = 1, initialValue=1)
     @GeneratedValue(generator = "search_logs_sequence")
-    private long searchLogsId;
+    private long searchLogId;
     private Date searchDateTime;
     private String searchTerms;
     @OneToOne(cascade = CascadeType.PERSIST)
     private User user;
 
-    public long getSearchLogsId() {
-        return searchLogsId;
+    public long getSearchLogId() {
+        return searchLogId;
     }
 
-    public void setSearchLogsId(long searchLogsId) {
-        this.searchLogsId = searchLogsId;
+    public void setSearchLogId(long searchLogId) {
+        this.searchLogId = searchLogId;
     }
 
     public Date getSearchDateTime() {
