@@ -8,12 +8,12 @@ import java.util.Date;
 @Entity
 public class SearchLog {
     @Id
-    @SequenceGenerator(name = "search_logs_sequence", sequenceName = "search_logs_sequence", allocationSize = 1, initialValue=1)
-    @GeneratedValue(generator = "search_logs_sequence")
+    @SequenceGenerator(name = "search_log_sequence", sequenceName = "search_log_sequence", allocationSize = 1, initialValue=1)
+    @GeneratedValue(generator = "search_log_sequence")
     private long searchLogId;
     private Date searchDateTime;
     private String searchTerms;
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne
     private User user;
 
     public long getSearchLogId() {
