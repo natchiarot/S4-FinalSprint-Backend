@@ -13,7 +13,7 @@ public class SearchLog {
     private long searchLogId;
     private Date searchDateTime;
     private String searchTerms;
-    @OneToOne
+    @ManyToOne
     private User user;
 
     public long getSearchLogId() {
